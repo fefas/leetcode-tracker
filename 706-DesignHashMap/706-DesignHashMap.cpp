@@ -4,7 +4,7 @@ private:
         int k;
         int v;
         Node* n;
-        Node(int k, int v, Node* n) : k(k), v(v), n(n) {}
+        Node(int k, int v) : k(k), v(v), n(NULL) {}
     };
 
     Node* map[1000];
@@ -19,42 +19,44 @@ private:
         return p;
     }
 
+    Node* findList(int k)
+    {
+        return map[k % 1000];
+    }
+
 public:
     MyHashMap()
     {
         memset(map, 0, sizeof(map));
 
         for (int i = 0; i < 1000; i++) {
-            map[i] = new Node(-1, -1, NULL);
+            map[i] = new Node(-1, -1);
         }
     }
     
     void put(int k, int v)
     {
-        Node* p = findNode(k);
+        Node* p = findList(k);
+        while (p->n && p->n->k != k) p = p->n;
 
-        if (p->n == NULL || p->n->k != k) {
-            p->n = new Node(k, v, p->n);
-        } else {
-            p->n->v = v;
-        }
+        if (p->n) p->n->v = v;
+        else p->n = new Node(k, v);
     }
     
     int get(int k)
     {
-        Node* p = findNode(k);
+        Node* p = findList(k);
+        while (p->n && p->n->k != k) p = p->n;
 
-        return p->n == NULL || p->n->k != k ? -1 : p->n->v;
+        return p->n ? p->n->v : -1;
     }
     
     void remove(int k)
     {
-        Node* p = findNode(k);
+        Node* p = findList(k);
+        while (p->n && p->n->k != k) p = p->n;
 
-        if (p->n == NULL || p->n->k != k)
-            return;
-        
-        p->n = p->n->n;
+        if (p->n) p->n = p->n->n;
     }
 };
 
