@@ -14,10 +14,9 @@ public:
     {
         int ans = 0;
 
-        while (head) {
+        for (ListNode *p = head; p; p = p->next) {
             ans <<= 1;
-            ans |= head->val;
-            head = head->next;
+            ans |= p->val;
         }
         
         return ans;
