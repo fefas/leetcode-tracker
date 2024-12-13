@@ -1,11 +1,14 @@
-struct Node {
-    int k;
-    int v;
-    Node *n;
-};
+
 
 class MyHashMap {
 private:
+    struct Node {
+        int k;
+        int v;
+        Node* n;
+        Node(int k, int v, Node* n) : k(k), v(v), n(n) {}
+    };
+
     Node* map[15626];
 
     Node* findNode(int k)
@@ -24,11 +27,7 @@ public:
         memset(map, 0, sizeof(map));
 
         for (int i = 0; i < 15626; i++) {
-            Node *p = new Node();
-            p->k = p->v = -1;
-            p->n = NULL;
-
-            map[i] = p;
+            map[i] = new Node(-1, -1, NULL);
         }
     }
     
@@ -37,13 +36,10 @@ public:
         Node* p = findNode(k);
 
         if (p->n == NULL || p->n->k != k) {
-            Node* n = new Node();
-            n->k = k;
-            n->n = p->n;
-            p->n = n;
+            p->n = new Node(k, v, p->n);
+        } else {
+            p->n->v = v;
         }
-        
-        p->n->v = v;
     }
     
     int get(int k)
