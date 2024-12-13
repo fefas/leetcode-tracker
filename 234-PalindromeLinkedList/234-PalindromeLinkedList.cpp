@@ -9,21 +9,30 @@
  * };
  */
 class Solution {
+private:
+    ListNode *left;
+
+    bool bla(ListNode* right)
+    {
+        if (right == NULL)
+            return true;
+
+        if (!bla(right->next))
+            return false;
+
+        if (left->val == right->val) {
+            left = left->next;
+            return true;
+        }
+        
+        return false;
+    }
+
 public:
     bool isPalindrome(ListNode* head)
     {
-        stack<ListNode*> s;
+        left = head;
 
-        for (ListNode *p = head; p; p = p->next) s.push(p);
-
-        for (int i = s.size() / 2; i >= 0; i--) {
-            if (head->val != s.top()->val)
-                return false;
-
-            head = head->next;
-            s.pop();
-        }
-
-        return true;
+        return bla(head);
     }
 };
