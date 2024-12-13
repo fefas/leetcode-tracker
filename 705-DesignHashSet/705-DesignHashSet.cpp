@@ -1,54 +1,37 @@
-struct Node {
-    int val;
-    Node *next;
-};
-
 class MyHashSet {
 private:
-    Node* l;
+    int values[31251];
 
-    Node* findClosest(int key)
+    int pos(int k)
     {
-        Node *p = l;
-        while (p->next && key > p->next->val)
-            p = p->next;
+        return k / 32;
+    }
 
-        return p;
+    int mask(int k)
+    {
+        return 1 << (k % 32);
     }
 
 public:
     MyHashSet()
     {
-        l = new Node();
+        memset(values, 0, sizeof(values));
     }
     
     void add(int key)
     {
-        Node *p = findClosest(key);
-        
-        if (p->next == NULL || p->next->val != key) {
-            Node *n = p->next;
-            p->next = new Node();
-            p->next->val = key;
-            p->next->next = n;
-        }
+        values[pos(key)] |= mask(key);
     }
     
     void remove(int key)
     {
-        Node *p = findClosest(key);
-        
-        if (p->next == NULL || p->next->val != key)
-            return;
-
-        p->next = p->next->next;
+        if (contains(key))
+            values[pos(key)] ^= mask(key);
     }
     
     bool contains(int key)
     {
-        Node *p = findClosest(key);
-
-        return p->next != NULL && p->next->val == key;
+        return (values[pos(key)] & mask(key)) != 0;
     }
 };
 
