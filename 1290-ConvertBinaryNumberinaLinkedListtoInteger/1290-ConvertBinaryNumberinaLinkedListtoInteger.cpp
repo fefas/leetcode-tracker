@@ -15,8 +15,7 @@ public:
         int ans = 0;
 
         for (ListNode *p = head; p; p = p->next) {
-            ans <<= 1;
-            ans |= p->val;
+            ans = (ans << 1) | p->val;
         }
         
         return ans;
