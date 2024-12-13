@@ -7,11 +7,11 @@ private:
         Node(int k, int v, Node* n) : k(k), v(v), n(n) {}
     };
 
-    Node* map[100];
+    Node* map[1000];
 
     Node* findNode(int k)
     {
-        Node* p = map[k % 100];
+        Node* p = map[k % 1000];
 
         while (p->n && p->n->k < k)
             p = p->n;
@@ -24,7 +24,7 @@ public:
     {
         memset(map, 0, sizeof(map));
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             map[i] = new Node(-1, -1, NULL);
         }
     }
