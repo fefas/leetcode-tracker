@@ -18,9 +18,17 @@ public:
 
 class Solution {
 public:
-    Node* connect(Node* root)
+    Node* connect(Node* root, Node* next = NULL)
     {
         if (!root) return NULL;
+
+        root->next = next;
+
+        if (root->left) {
+            if (root->right) connect(root->left, root->right);
+            else if (next) connect(root->left, next->left ? next->left : next->right);
+            else connect(root->left);
+        }
 
         queue<Node*> q;
         q.push(root);
