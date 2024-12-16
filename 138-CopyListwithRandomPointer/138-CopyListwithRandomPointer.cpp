@@ -15,12 +15,11 @@ public:
 */
 
 class Solution {
-private:
-    unordered_map<Node*,Node*> m;
-
 public:
     Node* copyRandomList(Node* head)
     {
+        unordered_map<Node*,Node*> m;
+
         for (Node* p = head; p; p = p->next) {
             m[p] = new Node(p->val);
         }
