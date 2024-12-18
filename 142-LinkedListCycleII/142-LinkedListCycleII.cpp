@@ -10,13 +10,23 @@ class Solution {
 public:
     ListNode *detectCycle(ListNode *head)
     {
-        map<ListNode*,bool> m;
+        ListNode* f = head;
+        ListNode* s = head;
 
-        while (head && !m.contains(head)) {
-            m[head] = true;
-            head = head->next;
+        while (f && f->next) {
+            s = s->next;
+            f = f->next->next;
+            if (s == f) break;
         }
 
-        return head;
+        if (!f || !f->next) return NULL;
+
+        s = head;
+        while (s != f) {
+            f = f->next;
+            s = s->next;
+        }
+
+        return f;
     }
 };
