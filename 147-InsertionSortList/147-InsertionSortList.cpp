@@ -21,22 +21,22 @@ public:
     {
         head = new ListNode(-5001, head);
 
-        for (ListNode* p = head->next; p->next;) {
-            if (p->val <= p->next->val) {
-                p = p->next;
+        for (ListNode* sorted = head->next; sorted->next;) {
+            if (sorted->val <= sorted->next->val) {
+                sorted = sorted->next;
                 continue;
             }
 
-            ListNode* s = head;
-            while (s->next->val <= p->next->val) {
-                s = s->next;
+            ListNode* search = head;
+            while (search->next->val <= sorted->next->val) {
+                search = search->next;
             }
 
-            ListNode* tmp = p->next;
+            ListNode* tmp = sorted->next;
 
-            p->next = tmp->next;
-            tmp->next = s->next;
-            s->next = tmp;
+            sorted->next = tmp->next;
+            tmp->next = search->next;
+            search->next = tmp;
         }
         
         return head->next;
