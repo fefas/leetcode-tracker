@@ -15,17 +15,21 @@ public:
         ListNode* sum = NULL;
         stack<int> n1, n2;
 
-        for (ListNode* p = l1; p; p = p->next) n1.push(p->val);
-        for (ListNode* p = l2; p; p = p->next) n2.push(p->val);
+        for (; l1; l1 = l1->next)
+            n1.push(l1->val);
+        for (; l2; l2 = l2->next)
+            n2.push(l2->val);
         
-        int val = 0;
-        do {
-            if (!n1.empty()) { val += n1.top(); n1.pop(); }
-            if (!n2.empty()) { val += n2.top(); n2.pop(); }
+        for (int val = 0; val > 0 || !n1.empty() || !n2.empty(); val /= 10) {
+            if (!n1.empty()) {
+                val += n1.top(); n1.pop(); }
+            if (!n2.empty()) {
+                val += n2.top();
+                n2.pop();
+            }
 
             sum = new ListNode(val % 10, sum);
-            val = val / 10;
-        } while (!n1.empty() || !n2.empty() || val > 0);
+        }
 
         return sum;
     }
