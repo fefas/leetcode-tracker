@@ -22,29 +22,16 @@ private:
     Node* tail;
     int len;
 
-    void print()
-    {
-        // int i = -1;
-        // for (Node* p = head; p; i++, p = p->next)
-        //     if (p->val < 0) cout << "{ X }, ";
-        //     else  cout << "{ " << i << " -> " << p->val << " }, "; 
-        // cout << endl;
-    }
-
 public:
     MyLinkedList()
     {
         tail = new Node(TAIL);
         head = new Node(HEAD, tail);
         len = 0;
-
-        print();
     }
     
     int get(int index)
     {
-        // cout << "get " << index << " (len=" << len << ")" << endl;
-
          if (index >= len) {
             return NOT_FOUND;
         }
@@ -59,8 +46,6 @@ public:
     {
         head->next = new Node(val, head->next);
         len++;
-
-        print();
     }
     
     void addAtTail(int val)
@@ -69,8 +54,6 @@ public:
         tail->next = new Node(TAIL);
         tail = tail->next;
         len++;
-
-        print();
     }
     
     void addAtIndex(int index, int val)
@@ -89,12 +72,10 @@ public:
         
         p->next = new Node(val, p->next);
         len++;
-        print();
     }
     
     void deleteAtIndex(int index)
     {
-        // cout << "delete " << index << " (len=" << len << ")" << endl;
         if (index >= len) {
             return;
         }
@@ -104,7 +85,6 @@ public:
 
         p->next = p->next->next;
         len--;
-        print();
     }
 };
 
