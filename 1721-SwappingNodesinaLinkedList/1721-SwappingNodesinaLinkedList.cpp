@@ -13,19 +13,19 @@ public:
     ListNode* swapNodes(ListNode* head, int k)
     {
         int N = 0;
+        ListNode* p1;
+        ListNode* p2;
+
         for (ListNode* p = head; p; p = p->next)
-            N++;
+            if (++N == k) p1 = p;
 
-        int l = N - k;
-        ListNode* pk, *pl;
-        for (ListNode* p = head; p; p = p->next) {
-            if (--k == 0) pk = p;
-            if (l-- == 0) pl = p;
-        }
+        p2 = head;
+        for (int i = N - k; i > 0; i--)
+            p2 = p2->next;
 
-        l = pk->val;
-        pk->val = pl->val;
-        pl->val = l;
+        N = p1->val;
+        p1->val = p2->val;
+        p2->val = N;
 
         return head;
     }
