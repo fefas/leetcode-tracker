@@ -7,11 +7,14 @@ public:
 
         int i = 0;
         for (const int & n : nums)
-            if (diffPosition.contains(n)) break;
+            if (diffPosition.contains(n)) {
+                ans[0] = i;
+                ans[1] = diffPosition[n];
+                break;
+            }
             else diffPosition[target - n] = i++;
 
-        ans[0] = i;
-        ans[1] = diffPosition[nums[i]];
+        
 
         return ans;
     }
